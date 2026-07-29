@@ -62,25 +62,24 @@ jobs:
 
           readme = package / "README-BENİ OKU.txt"
           text = readme.read_text(encoding="utf-8")
-          notice = """GoodbyeDPI-Turkey-Cloudflare
-
-Bu paket cagritaskn/GoodbyeDPI-Turkey projesinin Cloudflare DNS kullanan
-forkudur. DPI atlatma yöntemleri, çalıştırılabilir dosyalar ve kullanım biçimi
-upstream paketle aynıdır. Varsayılan DNS yönlendirmesi Yandex yerine Amerikan
-şirketi Cloudflare'ın IPv4 1.1.1.1 ve IPv6 2606:4700:4700::1111 adreslerine
-değiştirilmiştir. Cloudflare anycast ağı sayesinde sorgular genellikle
-Türkiye'deki veya ağ açısından en yakın Cloudflare noktasına yönlendirilir.
-
-Kaynaklar:
-- https://github.com/ValdikSS/GoodbyeDPI
-- https://github.com/cagritaskn/GoodbyeDPI-Turkey
-
-Bu dağıtım Apache License 2.0 koşulları altında sunulur. Orijinal telif hakkı
-bildirimleri ve licenses klasöründeki üçüncü taraf lisansları korunmuştur.
-Cloudflare bu projenin geliştiricisi, sponsoru veya destekçisi değildir.
-
-
-"""
+          notice = (
+              "GoodbyeDPI-Turkey-Cloudflare\n\n"
+              "Bu paket cagritaskn/GoodbyeDPI-Turkey projesinin Cloudflare DNS "
+              "kullanan forkudur. DPI atlatma yöntemleri, çalıştırılabilir "
+              "dosyalar ve kullanım biçimi upstream paketle aynıdır. Varsayılan "
+              "DNS yönlendirmesi Yandex yerine Amerikan şirketi Cloudflare'ın "
+              "IPv4 1.1.1.1 ve IPv6 2606:4700:4700::1111 adreslerine "
+              "değiştirilmiştir. Cloudflare anycast ağı sayesinde sorgular "
+              "genellikle Türkiye'deki veya ağ açısından en yakın Cloudflare "
+              "noktasına yönlendirilir.\n\n"
+              "Kaynaklar:\n"
+              "- https://github.com/ValdikSS/GoodbyeDPI\n"
+              "- https://github.com/cagritaskn/GoodbyeDPI-Turkey\n\n"
+              "Bu dağıtım Apache License 2.0 koşulları altında sunulur. "
+              "Orijinal telif hakkı bildirimleri ve licenses klasöründeki "
+              "üçüncü taraf lisansları korunmuştur. Cloudflare bu projenin "
+              "geliştiricisi, sponsoru veya destekçisi değildir.\n\n\n"
+          )
           text = notice + text
           text = text.replace(
               "goodbyedpi-0.2.3rc3-turkey.zip",
