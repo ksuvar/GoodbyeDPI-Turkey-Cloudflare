@@ -1,6 +1,14 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](https://www.microsoft.com/windows)
-[![Downloads](https://img.shields.io/github/downloads/cagritaskn/GoodbyeDPI-Turkey/total.svg)](https://github.com/cagritaskn/GoodbyeDPI-Turkey/releases/)
+[![Cloudflare DNS](https://img.shields.io/badge/DNS-Cloudflare-F38020?logo=cloudflare&logoColor=white)](#dns-ve-portu-düzenleme)
+[![Downloads](https://img.shields.io/github/downloads/ksuvar/GoodbyeDPI-Turkey-Cloudflare/total.svg)](https://github.com/ksuvar/GoodbyeDPI-Turkey-Cloudflare/releases/)
+
+# GoodbyeDPI-Turkey-Cloudflare
+>
+> [!IMPORTANT]
+> Bu depo, [cagritaskn/GoodbyeDPI-Turkey](https://github.com/cagritaskn/GoodbyeDPI-Turkey) projesinin **Cloudflare DNS kullanan forkudur**. DPI atlatma yöntemleri, çalıştırılabilir dosyalar ve kullanım biçimi upstream sürümle aynıdır. Temel fark, DNS yönlendirmeli komut dosyalarında Rusya merkezli Yandex DNS yerine Amerikan şirketi Cloudflare'ın `1.1.1.1` ve `2606:4700:4700::1111` adreslerinin kullanılmasıdır.
+>
+> Cloudflare, anycast ağı kullanır; bu nedenle DNS sorguları genellikle Türkiye'deki veya ağ açısından en yakın Cloudflare noktasına yönlendirilir. Bu ifade, her sorgunun fiziksel olarak Türkiye sınırları içindeki tek bir sunucuda işleneceği garantisi anlamına gelmez.
 
 # SplitWire-Turkey Hakkında Önemli Not (29.07.2025)
 >
@@ -15,7 +23,7 @@ Kaspersky'i GoodbyeDPI ZIP dosyasının indirme işlemi sırasında devre dış�
 
 ## Özet​
 
-Bu proje Discord ve diğer engelli site ve uygulamalara VPN'siz ve internet hızında yavaşlama olmadan girmek için GoodbyeDPI'ın düzenlenmiş bir versiyonudur.
+Bu proje Discord ve diğer engelli site ve uygulamalara VPN'siz ve internet hızında yavaşlama olmadan girmek için GoodbyeDPI-Turkey'in Cloudflare DNS kullanan düzenlenmiş bir versiyonudur.
 
 ## GoodbyeDPI — Derin Paket İnceleme (DPI) atlatma aracı (Türkiye versiyonu)
 
@@ -52,7 +60,7 @@ GoodbyeDPI'ın Türkiye fork'unu kullanmak için iki yöntem bulunmaktadır.
 
 GoodbyeDPI Türkiye versiyonunu hizmet kurarak kullanmak için:
 
-- [goodbyedpi-0.2.3rc3-turkey.zip](https://github.com/cagritaskn/GoodbyeDPI-Turkey/releases/download/release-0.2.3rc3-turkey/goodbyedpi-0.2.3rc3-turkey.zip) dosyasını bilgisayarınıza indirin.
+- [goodbyedpi-0.2.3rc3-turkey-cloudflare.zip](https://github.com/ksuvar/GoodbyeDPI-Turkey-Cloudflare/releases/download/release-0.2.3rc3-turkey-cloudflare/goodbyedpi-0.2.3rc3-turkey-cloudflare.zip) dosyasını bilgisayarınıza indirin.
 - ZIP dosyasını herhangi bir dizine çıkarın.
 - Çıkartılan dosyalardan ``service_install_dnsredir_turkey.cmd`` dosyasına sağ tıklayarak ``Yönetici Olarak Çalıştır`` seçeneğini seçin.
 - Açılan konsol penceresinde herhangi bir tuşuna basın.
@@ -65,7 +73,7 @@ GoodbyeDPI Türkiye versiyonunu hizmet kurarak kullanmak için:
 
 GoodbyeDPI Türkiye fork'unu batch dosyasını çalıştırarak kullanmak için **(Bir komut penceresi açılır ve uygulama çalışmaya başlar, bu pencere kapatıldığında çalışmaya son verilir)** :
 
-- [goodbyedpi-0.2.3rc3-turkey.zip](https://github.com/cagritaskn/GoodbyeDPI-Turkey/releases/download/release-0.2.3rc3-turkey/goodbyedpi-0.2.3rc3-turkey.zip) dosyasını bilgisayarınıza indirin.
+- [goodbyedpi-0.2.3rc3-turkey-cloudflare.zip](https://github.com/ksuvar/GoodbyeDPI-Turkey-Cloudflare/releases/download/release-0.2.3rc3-turkey-cloudflare/goodbyedpi-0.2.3rc3-turkey-cloudflare.zip) dosyasını bilgisayarınıza indirin.
 - ZIP dosyasını herhangi bir dizine çıkarın.
 - Çıkartılan dosyalardan ``turkey_dnsredir.cmd`` dosyasına sağ tıklayarak ``Yönetici Olarak Çalıştır`` seçeneğini seçin.
 
@@ -74,7 +82,7 @@ GoodbyeDPI Türkiye fork'unu batch dosyasını çalıştırarak kullanmak için 
 
 ## GoodbyeDPI'ı Kaldırmak ve DNS Ayarlarını Eski Haline Getirmek
 
-GoodbyeDPI'ı tamamen kapatmak ve silmek, bununla birlikte DNS atamasını kaldırmak için **[bu rehberi](https://github.com/cagritaskn/GoodbyeDPI-Turkey/blob/master/REVERT.md)** takip edebilirsiniz.
+GoodbyeDPI'ı tamamen kapatmak ve silmek, bununla birlikte DNS atamasını kaldırmak için **[bu rehberi](https://github.com/ksuvar/GoodbyeDPI-Turkey-Cloudflare/blob/master/REVERT.md)** takip edebilirsiniz.
 
 ## Sık Karşılaşılan Sorunlar
 
@@ -82,7 +90,7 @@ GoodbyeDPI'ı tamamen kapatmak ve silmek, bununla birlikte DNS atamasını kald�
 WinDivert dosyaları bulunamadı hatası alıyorsanız antivirüs programınıza ayıkladığınız klasörü dışlama/istisna olarak ekleyin. Windows Defender kullanıyorsanız [buradaki rehberi](https://support.microsoft.com/tr-tr/windows/windows-g%C3%BCvenli%C4%9Fi-ne-d%C4%B1%C5%9Flama-ekleme-811816c0-4dfd-af4a-47e4-c301afe13b26) (Kaspersky antivirüs programı için [buradaki rehberi](https://support.kaspersky.com/ksos/8.5/tr-TR/227390.htm)) takip ederek "goodbyedpi-0.2.3rc3-turkey" klasörünü dışlamalara ekleyebilirsiniz. Ancak dışlamalara eklemek sorununuzu çözmeyebilir. Bu durumda Kaspersky isimli programı sisteminizden tamamen kaldırıp ardından GoodbyeDPI-Turkey'in kurulumunu tekrar gerçekleştirmeniz gerekebilir.
 
 - Hizmetin başlatmaya çalışıldığında "Dosya yolu bulunamadı" hatası:
-Bu hata indirdiğiniz .zip klasörünü çıkardığınız konumdan farklı bir konuma taşımanız halinde ya da bazı dosyaları silmeniz halinde ortaya çıkar. Bu durumda [goodbyedpi-0.2.3rc3-turkey.zip](https://github.com/cagritaskn/GoodbyeDPI-Turkey/releases/download/release-0.2.3rc3-turkey/goodbyedpi-0.2.3rc3-turkey.zip) dosyasını tekrar bilgisayarınızda bir konuma çıkararak öncelikle service_remove.cmd dosyasını yönetici olarak çalıştırdıktan sonra seçeceğiniz diğer .cmd dosyasını tekrar çalıştırarak bu sorunu çözebilirsiniz.
+Bu hata indirdiğiniz .zip klasörünü çıkardığınız konumdan farklı bir konuma taşımanız halinde ya da bazı dosyaları silmeniz halinde ortaya çıkar. Bu durumda [goodbyedpi-0.2.3rc3-turkey-cloudflare.zip](https://github.com/ksuvar/GoodbyeDPI-Turkey-Cloudflare/releases/download/release-0.2.3rc3-turkey-cloudflare/goodbyedpi-0.2.3rc3-turkey-cloudflare.zip) dosyasını tekrar bilgisayarınızda bir konuma çıkararak öncelikle service_remove.cmd dosyasını yönetici olarak çalıştırdıktan sonra seçeceğiniz diğer .cmd dosyasını tekrar çalıştırarak bu sorunu çözebilirsiniz.
 
 - Bazı sitelerin yavaş açılması/açılmaması sorunu:
 Bu sorunu komut dosyalarında TTL ayarı bulunan yöntemlerde yaşayabilirsiniz. Eğer belirli siteler yavaş açılıyor ya da hiç açılmıyorsa TTL ayarı içermeyen 2 ve 4 numaralı alternatif metodları kullanarak bu sorunu çözebilirsiniz. Eğer hali hazırda başka bir komut dosyası ile kurulum yaptıysanız öncelikle ``service_remove.cmd`` komut dosyasını yönetici olarak çalıştırıp ardından 2 veya 4 numaralı alternatif yöntemleri ``service_install_dnsredir_turkey_alternative2_superonline`` ya da ``service_install_dnsredir_turkey_alternative4_superonline`` isimli komut dosyalarını yönetici olarak çalıştırıp talimatları takip ederek kurmalısınız.
@@ -95,7 +103,7 @@ Bu sorun genellikle fiber tarife kullanıcılarının karşılaştığı bir sor
 
 ## DNS ve Port'u Düzenleme
 
-Bu forktaki komut dosyalarında varsayılan olarak **Yandex DNS** kullanılmaktadır. Farklı bir DNS kullanmak için ``turkey_dnsredir.cmd`` ve ``service_install_dnsredir_turkey.cmd`` dosyalarını herhangi bir metin düzenleyici ile düzenleyerek DNS ve port bilgilerini değiştirebilirsiniz. Eğer alternatif metod 1, 2 veya 6'yı kullanacaksanız, **Windows 10 için [buradan](https://www.ipsorgu.com/windows_10_dns_degistirme.php)**, **Windows 11 için [buradan](https://www.ipsorgu.com/windows_11_dns_degistirme.php)** bakarak Windows ayarlarında DNS'inizi tercih ettiğiniz bir DNS adresine çevirin (Tavsiye edilen: Yandex DNS - 77.88.8.8/77.88.8.1 , Cloudflare DNS - 1.1.1.1/1.0.0.1). Eğer alternatif metod 3, 4 veya 5'i kullanacaksanız ayrıca DNS ayarlamanıza gerek yok, çünkü alternatif metod 3, 4 ve 5'te önayarlı olarak Yandex DNS kullanılmaktayken; 1, 2 ve 6 numaralı alternatif metodlarda önayarlı DNS bulunmamaktadır.
+Bu forktaki DNS yönlendirmeli komut dosyalarında varsayılan olarak **Cloudflare DNS** kullanılmaktadır: IPv4 `1.1.1.1`, IPv6 `2606:4700:4700::1111` ve standart DNS portu `53`. Alternatif metod 1, 2 veya 6'yı kullanacaksanız, **Windows 10 için [buradan](https://www.ipsorgu.com/windows_10_dns_degistirme.php)**, **Windows 11 için [buradan](https://www.ipsorgu.com/windows_11_dns_degistirme.php)** bakarak Windows DNS ayarınızı IPv4 için `1.1.1.1` / `1.0.0.1`, IPv6 için `2606:4700:4700::1111` / `2606:4700:4700::1001` şeklinde ayarlayın. Alternatif metod 3, 4 ve 5 Cloudflare DNS'i doğrudan komut satırında kullanır.
 
 ## WinDivert.dll ve WinDivert64.sys Dosyalarını Silmek​
 
@@ -114,7 +122,7 @@ Eğer SuperOnline Fiber kullanıyorsanız ve "Discord update failed - retrying i
 
 - Yukarıda anlatılan işlemleri ``turkey_dnsredir_alternative(1/2/3/4/5/6)_superonline.cmd``
 komut dosyalarından biri ile veya  ``service_install_dnsredir_turkey_alternative(1/2/3/4/5/6)_superonline.cmd`` komut dosyaları ile yapmayı deneyin (Sağ tık > Yönetici Olarak Çalıştır, daha sonra pencere açıldığında herhangi bir tuşa basın).
-- Bu işlemleri tamamladıktan sonra **Windows 10 için [buradan](https://www.ipsorgu.com/windows_10_dns_degistirme.php)**, **Windows 11 için [buradan](https://www.ipsorgu.com/windows_11_dns_degistirme.php)** bakarak Windows ayarlarında DNS'inizi tercih ettiğiniz bir DNS adresine çevirin. (Tavsiye edilen: Yandex DNS - 77.88.8.8/77.88.8.1 , Cloudflare DNS - 1.1.1.1/1.0.0.1)
+- Alternatif metod 1, 2 veya 6'yı kullanıyorsanız **Windows 10 için [buradan](https://www.ipsorgu.com/windows_10_dns_degistirme.php)**, **Windows 11 için [buradan](https://www.ipsorgu.com/windows_11_dns_degistirme.php)** bakarak Windows DNS ayarınızı IPv4 için `1.1.1.1` / `1.0.0.1`, IPv6 için `2606:4700:4700::1111` / `2606:4700:4700::1001` olarak değiştirin. Alternatif metod 3, 4 ve 5 Cloudflare DNS'i doğrudan kullanır.
 - Ardından bilgisayarınızı yeniden başlatın.
 
 Bu şekilde de Discord update failed - retrying in ** seconds hatası alıyorsanız:
@@ -141,6 +149,16 @@ Bu programı kullanmak tamamen ücretsizdir. Kullanımından herhangi bir gelir 
 **Patreon:**
 
 [![Static Badge](https://img.shields.io/badge/cagritaskn-purple?logo=patreon&label=Patreon)](https://www.patreon.com/cagritaskn/membership)
+
+## Kaynak, Telif Hakkı ve Lisans
+
+Bu proje aşağıdaki açık kaynak çalışmalar üzerine kuruludur:
+
+- [ValdikSS/GoodbyeDPI](https://github.com/ValdikSS/GoodbyeDPI)
+- [cagritaskn/GoodbyeDPI-Turkey](https://github.com/cagritaskn/GoodbyeDPI-Turkey)
+- [basil00/WinDivert](https://github.com/basil00/WinDivert)
+
+Kod ve dağıtım, depodaki [Apache License 2.0](LICENSE) koşulları altında sunulur. Orijinal telif hakkı bildirimleri ile ZIP paketinin `licenses` klasöründeki üçüncü taraf lisansları korunmuştur. Yapılan değişiklik, dağıtımın varsayılan DNS yapılandırmasının Cloudflare DNS'e çevrilmesi ve buna ilişkin belgelendirmedir. Cloudflare bu projenin geliştiricisi, sponsoru veya destekçisi değildir.
 
 ## Yasal Uyarı
 >
