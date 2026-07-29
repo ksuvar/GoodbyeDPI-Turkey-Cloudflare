@@ -1,0 +1,150 @@
+name: Build Cloudflare package
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/release-cloudflare.yml"
+
+permissions:
+  contents: write
+
+env:
+  UPSTREAM_URL: https://github.com/cagritaskn/GoodbyeDPI-Turkey/releases/download/release-0.2.3rc3-turkey/goodbyedpi-0.2.3rc3-turkey.zip
+  UPSTREAM_ARCHIVE: goodbyedpi-0.2.3rc3-turkey.zip
+  UPSTREAM_SHA256: b1f93b2e9434d93c5321275c4a3d0a87f3b822c552eceabdbeb1610c879e1863
+  RELEASE_TAG: release-0.2.3rc3-turkey-cloudflare
+  RELEASE_ARCHIVE: goodbyedpi-0.2.3rc3-turkey-cloudflare.zip
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download verified upstream package
+        run: |
+          curl --fail --location --retry 3 \
+            --output "$UPSTREAM_ARCHIVE" \
+            "$UPSTREAM_URL"
+          echo "$UPSTREAM_SHA256  $UPSTREAM_ARCHIVE" | sha256sum --check
+
+      - name: Replace Yandex DNS with Cloudflare DNS
+        run: |
+          mkdir package
+          unzip -q "$UPSTREAM_ARCHIVE" -d package
+          python3 <<'PY'
+          from pathlib import Path
+
+          package = Path("package")
+          old = (
+              b"--dns-addr 77.88.8.8 --dns-port 1253 "
+              b"--dnsv6-addr 2a02:6b8::feed:0ff --dnsv6-port 1253"
+          )
+          new = (
+              b"--dns-addr 1.1.1.1 --dns-port 53 "
+              b"--dnsv6-addr 2606:4700:4700::1111 --dnsv6-port 53"
+          )
+
+          replacements = 0
+          for path in package.glob("*.cmd"):
+              data = path.read_bytes()
+              count = data.count(old)
+              if count:
+                  path.write_bytes(data.replace(old, new))
+                  replacements += count
+
+          if replacements != 8:
+              raise SystemExit(
+                  f"Expected 8 DNS replacements, made {replacements}; upstream package changed."
+              )
+
+          readme = package / "README-BENİ OKU.txt"
+          text = readme.read_text(encoding="utf-8")
+          notice = """GoodbyeDPI-Turkey-Cloudflare
+
+Bu paket cagritaskn/GoodbyeDPI-Turkey projesinin Cloudflare DNS kullanan
+forkudur. DPI atlatma yöntemleri, çalıştırılabilir dosyalar ve kullanım biçimi
+upstream paketle aynıdır. Varsayılan DNS yönlendirmesi Yandex yerine Amerikan
+şirketi Cloudflare'ın IPv4 1.1.1.1 ve IPv6 2606:4700:4700::1111 adreslerine
+değiştirilmiştir. Cloudflare anycast ağı sayesinde sorgular genellikle
+Türkiye'deki veya ağ açısından en yakın Cloudflare noktasına yönlendirilir.
+
+Kaynaklar:
+- https://github.com/ValdikSS/GoodbyeDPI
+- https://github.com/cagritaskn/GoodbyeDPI-Turkey
+
+Bu dağıtım Apache License 2.0 koşulları altında sunulur. Orijinal telif hakkı
+bildirimleri ve licenses klasöründeki üçüncü taraf lisansları korunmuştur.
+Cloudflare bu projenin geliştiricisi, sponsoru veya destekçisi değildir.
+
+
+"""
+          text = notice + text
+          text = text.replace(
+              "goodbyedpi-0.2.3rc3-turkey.zip",
+              "goodbyedpi-0.2.3rc3-turkey-cloudflare.zip",
+          )
+          text = text.replace(
+              '"goodbyedpi-0.2.3rc3-turkey" klasörünü',
+              '"goodbyedpi-0.2.3rc3-turkey-cloudflare" klasörünü',
+          )
+          text = text.replace(
+              "Yandex DNS - 77.88.8.8/77.88.8.1 , "
+              "Cloudflare DNS - 1.1.1.1/1.0.0.1",
+              "Cloudflare DNS - 1.1.1.1/1.0.0.1",
+          )
+          text = text.replace(
+              "varsayılan olarak Yandex DNS kullanılmaktadır",
+              "varsayılan olarak Cloudflare DNS kullanılmaktadır",
+          )
+          text = text.replace(
+              "önayarlı olarak Yandex DNS kullanılmaktayken",
+              "önayarlı olarak Cloudflare DNS kullanılmaktayken",
+          )
+          readme.write_text(text, encoding="utf-8", newline="\r\n")
+          PY
+
+      - name: Verify package
+        run: |
+          if grep --recursive --line-number \
+            --include="*.cmd" \
+            --regexp="77\\.88\\." \
+            --regexp="2a02:6b8" \
+            package; then
+            echo "Yandex DNS remains in a command file."
+            exit 1
+          fi
+          grep --recursive --line-number \
+            --include="*.cmd" \
+            --regexp="--dns-addr 1\\.1\\.1\\.1" \
+            --regexp="--dnsv6-addr 2606:4700:4700::1111" \
+            package
+
+      - name: Create release archive
+        run: |
+          (
+            cd package
+            zip -q -X -r "../$RELEASE_ARCHIVE" .
+          )
+          sha256sum "$RELEASE_ARCHIVE" > "$RELEASE_ARCHIVE.sha256"
+          unzip -t "$RELEASE_ARCHIVE"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" \
+              "$RELEASE_ARCHIVE" \
+              "$RELEASE_ARCHIVE.sha256" \
+              --clobber
+          else
+            gh release create "$RELEASE_TAG" \
+              "$RELEASE_ARCHIVE" \
+              "$RELEASE_ARCHIVE.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "GoodbyeDPI Turkey Cloudflare 0.2.3rc3" \
+              --notes "GoodbyeDPI-Turkey ile aynı paket; varsayılan Yandex DNS yönlendirmesi Cloudflare IPv4 ve IPv6 DNS ile değiştirilmiştir."
+          fi
